@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Data
 public class GroceryListVO {
-	public List<Result> results;
+	public List<GroceryVO> groceryVOs;
 	public Total total;
 
 }
