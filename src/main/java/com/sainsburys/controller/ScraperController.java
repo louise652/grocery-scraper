@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.sainsburys.model.GroceryListVO;
-import com.sainsburys.model.Result;
+import com.sainsburys.model.GroceryVO;
 import com.sainsburys.model.Total;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +20,7 @@ import lombok.Setter;
 
 /**
  * Controller to scrape a webpage and add elements to a POJO
+ * 
  * @author Louise McCloy
  *
  */
@@ -48,7 +49,7 @@ public class ScraperController {
 
 		GroceryListVO groceryList = new GroceryListVO();
 
-		List<Result> resList = new ArrayList<>();
+		List<GroceryVO> resList = new ArrayList<>();
 		try {
 			Document pageDoc = Jsoup.connect(this.getUrl()).get();
 			pageDoc.select(PRODUCT_LIST_SELECTOR).forEach(item -> {
@@ -56,7 +57,7 @@ public class ScraperController {
 
 			});
 
-			groceryList.setResults(resList); // add the individual item to the overall list
+			groceryList.setGroceryVOs(resList); // add the individual item to the overall list
 			setGroceryTotals(groceryList); // set overall totals
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -73,20 +74,20 @@ public class ScraperController {
 	 * @param item    current item
 	 */
 
-	private void getIndividualItemPage(List<Result> resList, Element item) {
-		Result result = new Result();
-		result.setTitle(item.text());
-		getIndividualItemDetails(item.absUrl(HREF_SELECTOR), result);
-		resList.add(result);
+	private void getIndividualItemPage(List<GroceryVO> resList, Element item) {
+		GroceryVO groceryVO = new GroceryVO();
+		groceryVO.setTitle(item.text());
+		getIndividualItemDetails(item.absUrl(HREF_SELECTOR), groceryVO);
+		resList.add(groceryVO);
 	}
 
 	/**
 	 * GEts the individal item data from its page
 	 * 
-	 * @param url    item url
-	 * @param result item details
+	 * @param url       item url
+	 * @param groceryVO item details
 	 */
-	public static void getIndividualItemDetails(String url, Result result) {
+	public void getIndividualItemDetails(String url, GroceryVO groceryVO) {
 
 		Document doc;
 
@@ -95,9 +96,9 @@ public class ScraperController {
 			// connecting to item page using JSoup
 			doc = Jsoup.connect(url).userAgent(JSOUP_CLIENT).timeout(5000).get();
 
-			result.setDescription(getDescription(doc));
-			result.setUnit_price(getPricePerUnit(doc));
-			result.setKcal_per_100g(getCalories(doc));
+			groceryVO.setDescription(getDescription(doc));
+			groceryVO.setUnit_price(getPricePerUnit(doc));
+			groceryVO.setKcal_per_100g(getCalories(doc));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,11 +111,11 @@ public class ScraperController {
 	 * 
 	 * @param groceryList
 	 */
-	private void setGroceryTotals(GroceryListVO groceryList) {
+	public void setGroceryTotals(GroceryListVO groceryList) {
 		Total groceryTotal = new Total();
 
 		// summing the unit price of each item
-		double gross = groceryList.getResults().stream().filter(x -> x != null).mapToDouble(x -> x.getUnit_price())
+		double gross = groceryList.getGroceryVOs().stream().filter(x -> x != null).mapToDouble(x -> x.getUnit_price())
 				.sum();
 
 		// since vat is 20%, divide gross by 1.2 to get the value before vat
@@ -135,7 +136,7 @@ public class ScraperController {
 	 * @param doc item page
 	 * @return calorie value
 	 */
-	private static Integer getCalories(Document doc) {
+	private Integer getCalories(Document doc) {
 		Integer calories = null;
 
 		// There are two different calorie tables used (200g cherries seems to be
@@ -164,7 +165,7 @@ public class ScraperController {
 	 * @param doc item url
 	 * @return first line of description
 	 */
-	private static String getDescription(Document doc) {
+	private String getDescription(Document doc) {
 		return doc.select(DESCRIPTION_SELECTOR).first().parent().children().get(1).text();
 	}
 
@@ -174,7 +175,7 @@ public class ScraperController {
 	 * @param doc item url
 	 * @return item price
 	 */
-	private static double getPricePerUnit(Document doc) {
+	private double getPricePerUnit(Document doc) {
 		String pricePerUnit = doc.selectFirst(PRICE_PER_UNIT_SELECTOR).text();
 		return Double.parseDouble(extractNumberFromString(pricePerUnit));
 	}
@@ -185,7 +186,7 @@ public class ScraperController {
 	 * @param input String to strip
 	 * @return stripped output
 	 */
-	private static String extractNumberFromString(String input) {
+	public String extractNumberFromString(String input) {
 		return input.replaceAll(DOUBLE_REGEX, "");
 	}
 
