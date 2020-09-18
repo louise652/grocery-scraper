@@ -25,7 +25,7 @@ public class ScraperApplication {
 
 		// print out results
 		ScraperView view = new ScraperView();
-		view.displayItems(groceryList);
+		System.out.println(view.displayItems(groceryList));
 	}
 
 }

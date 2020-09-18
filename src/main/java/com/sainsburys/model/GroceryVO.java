@@ -15,11 +15,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class GroceryVO {
 
 	public String title;
 
-	@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+	
 	public Integer kcal_per_100g;
 	public double unit_price;
 	public String description;

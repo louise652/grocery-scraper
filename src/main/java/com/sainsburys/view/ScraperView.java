@@ -22,15 +22,14 @@ public class ScraperView {
 	 * 
 	 * @param groceryList POJO of items
 	 */
-	public void displayItems(GroceryListVO groceryList) {
+	public String displayItems(GroceryListVO groceryList) {
 
 		ObjectMapper mapper = new ObjectMapper(); // for printing to console
 		ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter()); // for writing to file
-		String json;
+		String json = "";
 		try {
 			json = (mapper.writerWithDefaultPrettyPrinter().writeValueAsString(groceryList));
 			writer.writeValue(Paths.get("result.json").toFile(), groceryList);
-			System.out.println(json);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,7 +37,9 @@ public class ScraperView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		return json;
 	}
+	
+	
 
 }

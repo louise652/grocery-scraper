@@ -2,6 +2,8 @@ package com.sainsburys.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import lombok.Data;
 
 /**
@@ -12,6 +14,7 @@ import lombok.Data;
  *
  */
 @Data
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class GroceryListVO {
 	public List<GroceryVO> groceryVOs;
 	public Total total;
