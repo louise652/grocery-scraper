@@ -46,5 +46,5 @@ If running through the IDE, navigate to the src/test/java directory. Right click
 * A more user friendly GUI instead of just printing to the terminal
 
 ## Example output
-![JSON output](https://github.com/louise652/grocery-scraper/tree/main/src/main/resources)
+![JSON output](/scraper/src/main/resources/results.png)
 
