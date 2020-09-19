@@ -30,16 +30,10 @@ public class ScraperView {
 		try {
 			json = (mapper.writerWithDefaultPrettyPrinter().writeValueAsString(groceryList));
 			writer.writeValue(Paths.get("result.json").toFile(), groceryList);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Exception parsing Json: " + e.getMessage());
 		}
 		return json;
 	}
-	
-	
 
 }
