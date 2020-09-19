@@ -56,7 +56,7 @@ public class ScraperController {
 
 			);
 
-			groceryList.setGroceryVOs(resList); // add the individual item to the overall list
+			groceryList.setResults(resList); // add the individual item to the overall list
 			setGroceryTotals(groceryList); // set overall totals
 		} catch (IOException e) {
 			System.out.println("Exception scraping url: " + e.getMessage());
@@ -113,7 +113,7 @@ public class ScraperController {
 		Total groceryTotal = new Total();
 
 		// summing the unit price of each item
-		double gross = groceryList.getGroceryVOs().stream().filter(x -> x != null).mapToDouble(x -> Double.valueOf(x.getUnit_price()))
+		double gross = groceryList.getResults().stream().filter(x -> x != null).mapToDouble(x -> Double.valueOf(x.getUnit_price()))
 				.sum();
 
 		// since vat is 20%, divide gross by 1.2 to get the value before vat

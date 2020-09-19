@@ -43,7 +43,7 @@ public class ScraperControllerTest {
 	public void testListContainsItems() {
 
 		list = controller.retrieveGroceryList();
-		List<GroceryVO> results = list.getGroceryVOs();
+		List<GroceryVO> results = list.getResults();
 		assertTrue("Individual item should populate", results.size() > 0);
 	}
 
@@ -66,7 +66,7 @@ public class ScraperControllerTest {
 	public void testWrongURL() {
 		controller = new ScraperController("https://www.google.com/");
 		list = controller.retrieveGroceryList();
-		assertTrue("List should not populate", list.getGroceryVOs().isEmpty());
+		assertTrue("List should not populate", list.getResults().isEmpty());
 
 	}
 
@@ -84,7 +84,7 @@ public class ScraperControllerTest {
 
 		groceryVOs.add(new GroceryVO("Sainsbury's Strawberries 400g", 22, "1.75", "by Sainsbury's strawberries"));
 		groceryVOs.add(new GroceryVO("Sainsbury's Blueberries 200g", 45, "3.25", "by Sainsbury's blueberries"));
-		listVO.setGroceryVOs(groceryVOs);
+		listVO.setResults(groceryVOs);
 
 		return listVO;
 

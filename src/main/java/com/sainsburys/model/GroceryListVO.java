@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class GroceryListVO {
-	public List<GroceryVO> groceryVOs;
+	public List<GroceryVO> results;
 	public Total total;
 
 }
