@@ -18,6 +18,8 @@ public class ScraperApplication {
 
 	public static void main(String[] args) {
 
+		System.out.println("Starting screen scrape with url: "+ URL);
+		
 		ScraperController controller = new ScraperController(URL);
 
 		// retrieve grocery list from the controller
@@ -26,6 +28,7 @@ public class ScraperApplication {
 		// print out results
 		ScraperView view = new ScraperView();
 		System.out.println(view.displayItems(groceryList));
+		System.out.println("Results written to result.json");
 	}
 
 }

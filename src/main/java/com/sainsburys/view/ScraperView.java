@@ -3,7 +3,6 @@ package com.sainsburys.view;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -30,16 +29,10 @@ public class ScraperView {
 		try {
 			json = (mapper.writerWithDefaultPrettyPrinter().writeValueAsString(groceryList));
 			writer.writeValue(Paths.get("result.json").toFile(), groceryList);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Exception parsing Json: " + e.getMessage());
 		}
 		return json;
 	}
-	
-	
 
 }

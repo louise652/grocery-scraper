@@ -52,16 +52,14 @@ public class ScraperController {
 		List<GroceryVO> resList = new ArrayList<>();
 		try {
 			Document pageDoc = Jsoup.connect(this.getUrl()).get();
-			pageDoc.select(PRODUCT_LIST_SELECTOR).forEach(item -> {
-				getIndividualItemPage(resList, item);
+			pageDoc.select(PRODUCT_LIST_SELECTOR).forEach(item -> getIndividualItemPage(resList, item)
 
-			});
+			);
 
 			groceryList.setGroceryVOs(resList); // add the individual item to the overall list
 			setGroceryTotals(groceryList); // set overall totals
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Exception scraping url: " + e.getMessage());
 		}
 		return groceryList;
 
@@ -100,8 +98,8 @@ public class ScraperController {
 			groceryVO.setUnit_price(getPricePerUnit(doc));
 			groceryVO.setKcal_per_100g(getCalories(doc));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Exception scraping item page: " + e.getMessage());
 		}
 
 	}
