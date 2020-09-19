@@ -95,7 +95,7 @@ public class ScraperController {
 			doc = Jsoup.connect(url).userAgent(JSOUP_CLIENT).timeout(5000).get();
 
 			groceryVO.setDescription(getDescription(doc));
-			groceryVO.setUnit_price(getPricePerUnit(doc));
+			groceryVO.setUnit_price(String.format("%.2f", getPricePerUnit(doc)));
 			groceryVO.setKcal_per_100g(getCalories(doc));
 		} catch (IOException e) {
 
@@ -113,7 +113,7 @@ public class ScraperController {
 		Total groceryTotal = new Total();
 
 		// summing the unit price of each item
-		double gross = groceryList.getGroceryVOs().stream().filter(x -> x != null).mapToDouble(x -> x.getUnit_price())
+		double gross = groceryList.getGroceryVOs().stream().filter(x -> x != null).mapToDouble(x -> Double.valueOf(x.getUnit_price()))
 				.sum();
 
 		// since vat is 20%, divide gross by 1.2 to get the value before vat

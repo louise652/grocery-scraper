@@ -82,8 +82,8 @@ public class ScraperControllerTest {
 		GroceryListVO listVO = new GroceryListVO();
 		List<GroceryVO> groceryVOs = new ArrayList<>();
 
-		groceryVOs.add(new GroceryVO("Sainsbury's Strawberries 400g", 22, 1.75, "by Sainsbury's strawberries"));
-		groceryVOs.add(new GroceryVO("Sainsbury's Blueberries 200g", 45, 3.25, "by Sainsbury's blueberries"));
+		groceryVOs.add(new GroceryVO("Sainsbury's Strawberries 400g", 22, "1.75", "by Sainsbury's strawberries"));
+		groceryVOs.add(new GroceryVO("Sainsbury's Blueberries 200g", 45, "3.25", "by Sainsbury's blueberries"));
 		listVO.setGroceryVOs(groceryVOs);
 
 		return listVO;

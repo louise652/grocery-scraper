@@ -22,7 +22,7 @@ public class GroceryVO {
 
 	
 	public Integer kcal_per_100g;
-	public double unit_price;
+	public String unit_price;
 	public String description;
 
 }
