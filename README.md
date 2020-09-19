@@ -15,6 +15,8 @@ Full requirements for project [here](https://jsainsburyplc.github.io/serverside-
 
 ## Running code
 
+Prerequiste: Ensure you are running the code on a machine with Java 1.8 or higher installed.
+
 ### Running outside an IDE
 The easiest way to execute the code is to download and save the [GroceryScraper.jar](https://github.com/louise652/grocery-scraper/blob/main/LaunchGroceryScraper.jar) file. Open a command prompt window and navigate to the directory where the file is saved. Type the command 
 ```git
